@@ -39,8 +39,10 @@ def readRawFile(inFile):
 def genDict(oriDic):
     ''' eg: "十三元平": "言园源原喧轩翻繁元垣猿援[引也]萱 '''
     yunDic = {}
+    yunCatDic = {}
     for (header, conts) in oriDic.items():
-        (yun, sheng) = (header[:-1], header[-1])
+        yun, sheng = header[:-1], header[-1]
+        yunCat = sheng + yun
 
         # print(cont.decode("utf-8"))
         print("-- origin: %s" % conts)
@@ -61,12 +63,21 @@ def genDict(oriDic):
             if conts[idx] not in yunDic:
                 yunDic[conts[idx]] = []
             yunDic[conts[idx]].append([sheng, yun, note])
+
+            # write to categorical dict
+            if yunCat not in yunCatDic:
+                yunCatDic[yunCat] = []
+            if note != '':
+                yunCatDic[yunCat].append(conts[idx] + '[' + note + ']')
+            else:
+                yunCatDic[yunCat].append(conts[idx])
+
             if idx < start:
                 idx = start + 1
             else:
                 idx += 1
         print()
-    return yunDic
+    return yunDic, yunCatDic
 
 
 if __name__ == '__main__':
@@ -75,6 +86,9 @@ if __name__ == '__main__':
     with open("./data/oriYunDict.json", 'w+', encoding='utf-8') as oriDicFile:
         oriDicFile.write(json.dumps(oriDic, ensure_ascii=False, indent=4))
 
-    baseDic = genDict(oriDic)
+    baseDic, catDic = genDict(oriDic)
     with open("./data/baseCharDict.json", 'w+', encoding='utf-8') as baseDicFile:
         baseDicFile.write(json.dumps(baseDic, ensure_ascii=False))
+
+    with open("./data/categoricalDict.json", 'w+', encoding='utf-8') as catDicFile:
+        catDicFile.write(json.dumps(catDic, ensure_ascii=False, indent=4))
