@@ -34,7 +34,7 @@ def search(words):
     return result
 
 def readJson(js):
-    with open(js) as fd:
+    with open(js, encoding="utf-8") as fd:
         cont = json.load(fd)
         return cont
 
