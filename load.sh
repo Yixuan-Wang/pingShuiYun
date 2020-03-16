@@ -9,11 +9,11 @@ if [ $# -ne 1 ];then
 fi
 
 if [ "$1"  == "start" ];then
-    nohup python yunServer.py data/baseCharDict.json 1>>out 2>>err &
+    nohup python3 yunServer.py data/baseCharDict.json 1>>out 2>>err &
     echo "started..."
 elif [ "$1"  == "stop" ];then
     ps axu | grep yunServer.py | grep -v grep  | awk '{print $2}' | xargs kill -9
-    echo "stoped..."
+    echo "stopped..."
 elif [ "$1" == "status" ];then
     ps axu | grep yunServer.py | grep -v grep
     if [ "$?" -eq 0 ];then
