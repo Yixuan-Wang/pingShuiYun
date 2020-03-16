@@ -1,11 +1,5 @@
-#!/usr/bin/env python
-# _*_ coding: utf-8 _*_
-
 import json
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-import codecs
 
 from flask import Flask
 from flask import request
@@ -19,7 +13,7 @@ def home():
 @app.route('/char', methods=['GET'])
 def char():
     words = request.args.get('q', '')
-    print words
+    print(words)
     return search(words)
 
 def search(words):
