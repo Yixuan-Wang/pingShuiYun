@@ -84,11 +84,11 @@ if __name__ == '__main__':
     fName = checkRawFile(sys.argv)
     oriDic = readRawFile(fName)
     with open("./data/oriYunDict.json", 'w+', encoding='utf-8') as oriDicFile:
-        oriDicFile.write(json.dumps(oriDic, ensure_ascii=False, indent=4))
+        oriDicFile.write(json.dumps(oriDic, ensure_ascii=False))
 
     baseDic, catDic = genDict(oriDic)
     with open("./data/baseCharDict.json", 'w+', encoding='utf-8') as baseDicFile:
         baseDicFile.write(json.dumps(baseDic, ensure_ascii=False))
 
     with open("./data/categoricalDict.json", 'w+', encoding='utf-8') as catDicFile:
-        catDicFile.write(json.dumps(catDic, ensure_ascii=False, indent=4))
+        catDicFile.write(json.dumps(catDic, ensure_ascii=False))
